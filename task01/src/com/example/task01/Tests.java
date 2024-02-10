@@ -43,5 +43,4 @@ public class Tests {
     public void testEquals() {
         impl.testEquals();
     }
-
 }
