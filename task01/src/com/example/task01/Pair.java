@@ -2,36 +2,33 @@ package com.example.task01;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class Pair<T1, T2> {
-    private T1 _first;
-    private T2 _second;
 
-    /*private Pair(T1 first, T2 second) {
-        _first = Objects.requireNonNull(first);
-        _second = Objects.requireNonNull(second);
-    }*/
+    private T1 firstElement;
+    private T2 secondElement;
 
-    private Pair(T1 first, T2 second){
-        _first = first;
-        _second = second;
+    private Pair(T1 firstElement, T2 secondElement) {
+        this.firstElement = firstElement;
+        this.secondElement = secondElement;
     }
 
-    public static <T1, T2> Pair<T1, T2> of(T1 first, T2 second){
-        return new Pair<>(first, second);
+    public static <T1, T2> Pair of(T1 first, T2 second) {
+        return new Pair(first, second);
+    }
+
+    public void ifPresent(BiConsumer<? super T1, ? super T2> consumer) {
+        if (firstElement != null && secondElement != null)
+            consumer.accept(firstElement, secondElement);
     }
 
     public T1 getFirst() {
-        return _first;
+        return firstElement;
     }
 
     public T2 getSecond() {
-        return _second;
-    }
-
-    public void ifPresent(BiConsumer<? super T1, ? super T2> consumer){
-        if(_first != null && _second != null)
-            consumer.accept(_first, _second);
+        return secondElement;
     }
 
     @Override
@@ -39,11 +36,11 @@ public class Pair<T1, T2> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pair<?, ?> pair = (Pair<?, ?>) o;
-        return Objects.equals(_first, pair._first) && Objects.equals(_second, pair._second);
+        return Objects.equals(firstElement, pair.firstElement) && Objects.equals(secondElement, pair.secondElement);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(_first, _second);
+        return Objects.hash(firstElement, secondElement);
     }
 }
